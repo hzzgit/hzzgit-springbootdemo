@@ -102,9 +102,6 @@ public class Mysqldb implements Hzzdao {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-        if (con != null) {
-        } else {
-        }
         Object result=null;
         try {
             ps = con.prepareStatement(sql);

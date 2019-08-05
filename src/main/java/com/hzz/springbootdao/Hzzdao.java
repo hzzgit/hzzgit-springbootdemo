@@ -53,6 +53,14 @@ public interface Hzzdao {
     public List<ConverMap> query(String sql, Object... wdata);
 
 
+    /**
+     * 查询第一行第一列数据
+     * @param sql
+     * @param wdata
+     * @return
+     */
+    public   Object searchFirstVal (String sql, Object... wdata);
+
 
     public boolean executesql(String sql, Object... wdata);
 

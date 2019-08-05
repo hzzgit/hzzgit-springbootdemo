@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzz.dao.AdasadsmsMapper" >
+  <resultMap id="BaseResultMap" type="com.hzz.entity.Adasadsms" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="alarmNo" property="alarmno" jdbcType="VARCHAR" />
+    <result column="alarmVerify" property="alarmverify" jdbcType="INTEGER" />
+    <result column="verifyElement" property="verifyelement" jdbcType="VARCHAR" />
+    <result column="element" property="element" jdbcType="VARCHAR" />
+    <result column="elementValue" property="elementvalue" jdbcType="INTEGER" />
+    <result column="elementValueOld" property="elementvalueold" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, alarmNo, alarmVerify, verifyElement, element, elementValue, elementValueOld
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from adasadsms
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectalarm" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from gps_hisdata.adasadsms
+    limit 0,10
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from adasadsms
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hzz.entity.Adasadsms" >
+    insert into adasadsms (id, alarmNo, alarmVerify,
+      verifyElement, element, elementValue,
+      elementValueOld)
+    values (#{id,jdbcType=INTEGER}, #{alarmno,jdbcType=VARCHAR}, #{alarmverify,jdbcType=INTEGER},
+      #{verifyelement,jdbcType=VARCHAR}, #{element,jdbcType=VARCHAR}, #{elementvalue,jdbcType=INTEGER},
+      #{elementvalueold,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzz.entity.Adasadsms" >
+    insert into adasadsms
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="alarmno != null" >
+        alarmNo,
+      </if>
+      <if test="alarmverify != null" >
+        alarmVerify,
+      </if>
+      <if test="verifyelement != null" >
+        verifyElement,
+      </if>
+      <if test="element != null" >
+        element,
+      </if>
+      <if test="elementvalue != null" >
+        elementValue,
+      </if>
+      <if test="elementvalueold != null" >
+        elementValueOld,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="alarmno != null" >
+        #{alarmno,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmverify != null" >
+        #{alarmverify,jdbcType=INTEGER},
+      </if>
+      <if test="verifyelement != null" >
+        #{verifyelement,jdbcType=VARCHAR},
+      </if>
+      <if test="element != null" >
+        #{element,jdbcType=VARCHAR},
+      </if>
+      <if test="elementvalue != null" >
+        #{elementvalue,jdbcType=INTEGER},
+      </if>
+      <if test="elementvalueold != null" >
+        #{elementvalueold,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzz.entity.Adasadsms" >
+    update adasadsms
+    <set >
+      <if test="alarmno != null" >
+        alarmNo = #{alarmno,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmverify != null" >
+        alarmVerify = #{alarmverify,jdbcType=INTEGER},
+      </if>
+      <if test="verifyelement != null" >
+        verifyElement = #{verifyelement,jdbcType=VARCHAR},
+      </if>
+      <if test="element != null" >
+        element = #{element,jdbcType=VARCHAR},
+      </if>
+      <if test="elementvalue != null" >
+        elementValue = #{elementvalue,jdbcType=INTEGER},
+      </if>
+      <if test="elementvalueold != null" >
+        elementValueOld = #{elementvalueold,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzz.entity.Adasadsms" >
+    update adasadsms
+    set alarmNo = #{alarmno,jdbcType=VARCHAR},
+      alarmVerify = #{alarmverify,jdbcType=INTEGER},
+      verifyElement = #{verifyelement,jdbcType=VARCHAR},
+      element = #{element,jdbcType=VARCHAR},
+      elementValue = #{elementvalue,jdbcType=INTEGER},
+      elementValueOld = #{elementvalueold,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

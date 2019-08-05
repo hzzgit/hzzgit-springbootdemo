@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzz.dao.basicdataMapper" >
+  <resultMap id="BaseResultMap" type="com.hzz.entity.basicdata" >
+    <id column="baseId" property="baseid" jdbcType="INTEGER" />
+    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="owner" property="owner" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="meta" property="meta" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="parent" property="parent" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="INTEGER" />
+    <result column="companyId" property="companyid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    baseId, createDate, deleted, owner, remark, code, meta, name, parent, sn, companyId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from basicdata
+    where baseId = #{baseid,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selects" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from basicdata
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from basicdata
+    where baseId = #{baseid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hzz.entity.basicdata" >
+    insert into basicdata (baseId, createDate, deleted,
+      owner, remark, code,
+      meta, name, parent,
+      sn, companyId)
+    values (#{baseid,jdbcType=INTEGER}, #{createdate,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT},
+      #{owner,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+      #{meta,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{parent,jdbcType=VARCHAR},
+      #{sn,jdbcType=INTEGER}, #{companyid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzz.entity.basicdata" >
+    insert into basicdata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="baseid != null" >
+        baseId,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="owner != null" >
+        owner,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="meta != null" >
+        meta,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="parent != null" >
+        parent,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="companyid != null" >
+        companyId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="baseid != null" >
+        #{baseid,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="meta != null" >
+        #{meta,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null" >
+        #{parent,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=INTEGER},
+      </if>
+      <if test="companyid != null" >
+        #{companyid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzz.entity.basicdata" >
+    update basicdata
+    <set >
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="owner != null" >
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="meta != null" >
+        meta = #{meta,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null" >
+        parent = #{parent,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=INTEGER},
+      </if>
+      <if test="companyid != null" >
+        companyId = #{companyid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where baseId = #{baseid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzz.entity.basicdata" >
+    update basicdata
+    set createDate = #{createdate,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT},
+      owner = #{owner,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      meta = #{meta,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      parent = #{parent,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=INTEGER},
+      companyId = #{companyid,jdbcType=INTEGER}
+    where baseId = #{baseid,jdbcType=INTEGER}
+  </update>
+</mapper>

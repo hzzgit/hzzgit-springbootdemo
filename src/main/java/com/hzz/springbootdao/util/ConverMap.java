@@ -3,9 +3,9 @@ package com.hzz.springbootdao.util;
 import java.util.*;
 
 /**
- * 类型自动转换的Map类
+ * 类型自动转换的Map类,自动强制转换的类
  */
-public class ConverMap extends HashMap implements Map {
+public class ConverMap<K,V> extends HashMap implements Map {
 
     public String getString(String key,String defaultvalue){
         return  ConverterUtils.toString(get(key),defaultvalue);
@@ -15,7 +15,7 @@ public class ConverMap extends HashMap implements Map {
         return  ConverterUtils.toInt(get(key),defaultvalue);
     }
 
-    public Long getLong(String key,Long defaultvalue){
+    public Long getLong(String key,long defaultvalue){
         return  ConverterUtils.toLong(get(key),defaultvalue);
     }
 
@@ -29,6 +29,30 @@ public class ConverMap extends HashMap implements Map {
 
     public Date getDate(String key, Date defaultvalue){
         return  ConverterUtils.toDate(get(key),defaultvalue);
+    }
+
+    public String getString(String key){
+        return  ConverterUtils.toString(get(key),"");
+    }
+
+    public Integer getInt(String key){
+        return  ConverterUtils.toInt(get(key),0);
+    }
+
+    public Long getLong(String key){
+        return  ConverterUtils.toLong(get(key),0);
+    }
+
+    public Double getDouble(String key){
+        return  ConverterUtils.toDouble(get(key),0.0);
+    }
+
+    public Float getFloat(String key){
+        return  ConverterUtils.toFloat(get(key), (float) 0.0);
+    }
+
+    public Date getDate(String key){
+        return  ConverterUtils.toDate(get(key),null);
     }
 
 

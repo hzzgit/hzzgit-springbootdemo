@@ -23,20 +23,20 @@ public class backhzzdb {
     private AdasadsmsMapper adasadsmsMapper;
     @PostConstruct
     private void init(){
-        String sql="select * from alarmconfig ";
-        PaginateResult paginateResult=hzzdao.queryPage(sql, AlarmConfig.class, 10, 10);
-        PaginateResult paginateResult2=hzzdao.queryPage(sql, 10, 10);
-        List<ConverMap> lists=hzzdao.query(sql);
-        List<AlarmConfig> lists2=hzzdao.query(sql,AlarmConfig.class);
-
-        Map da = new HashMap<>();
-        da.put("type", 1);
-        List<ConverMap> name = adasadsmsMapper.selecttest(da);
-        for (ConverMap map : name) {
-            System.out.println(map.getString("time",""));
-            System.out.println(map.getDate("time",null));
-
-        }
-        System.out.println(name);
+//        String sql="select * from alarmconfig ";
+//        PaginateResult paginateResult=hzzdao.queryPage(sql, AlarmConfig.class, 10, 10);
+//        PaginateResult paginateResult2=hzzdao.queryPage(sql, 10, 10);
+//        List<ConverMap> lists=hzzdao.query(sql);
+//        List<AlarmConfig> lists2=hzzdao.query(sql,AlarmConfig.class);
+//
+//        Map da = new HashMap<>();
+//        da.put("type", 1);
+//        List<ConverMap> name = adasadsmsMapper.selecttest(da);
+//        for (ConverMap map : name) {
+//            System.out.println(map.getString("time",""));
+//            System.out.println(map.getDate("time",null));
+//
+//        }
+//        System.out.println(name);
     }
 }

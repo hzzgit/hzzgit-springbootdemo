@@ -2,7 +2,7 @@ package com.hzz.redisDao;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.hzz.redis.RedisUtil;
+import net.fxft.cloud.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class redisDap {
 
     @Autowired
     private RedisUtil redis;
-    @PostConstruct
+   // @PostConstruct
     public void redistest2(){
         String te= (String) redis.execute(jd->{
             return jd.get("tk");
@@ -28,7 +28,7 @@ public class redisDap {
             jd.set("te1",jsonObject.toJSONString());
         });
     }
-    @PostConstruct
+   // @PostConstruct
     public void redistest(){
 
         String te= (String) redis.execute(jd->{

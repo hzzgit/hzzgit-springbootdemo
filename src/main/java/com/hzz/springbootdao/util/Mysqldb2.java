@@ -1,29 +1,23 @@
-package com.hzz.springbootdao;
+package com.hzz.springbootdao.util;
 
 
-import com.hzz.springbootdao.util.ConverMap;
-import com.hzz.springbootdao.util.PaginateResult;
+import com.hzz.springbootdao.Hzzdao;
 import com.hzz.util.ConverterUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.datasource.DataSourceUtils;
-import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
  * 进行gbase,mysql数据库查询
  */
 //@Service("mysqldb")
-public class Mysqldb implements Hzzdao {
+public class Mysqldb2 implements Hzzdao {
 
    // @Qualifier("dataSource")
   //  @Autowired

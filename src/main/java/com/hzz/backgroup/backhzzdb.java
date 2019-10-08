@@ -6,6 +6,7 @@ import com.hzz.springbootdao.Hzzdao;
 import com.hzz.springbootdao.util.ConverMap;
 import com.hzz.springbootdao.util.PaginateResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +18,7 @@ import java.util.Map;
 public class backhzzdb {
 
     @Autowired
+    @Qualifier("hzzdao1")
     private Hzzdao hzzdao;
 
     @Autowired

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.hzz.entity.basicdata;
 import com.hzz.service.IQueryService;
 import com.hzz.service.PaginateResult;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -3,6 +3,9 @@ package com.hzz.util;
 
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class mains {
     public static void main(String[] args) {
 //        System.out.println(meiju.ALARMBYCAR.getValue());
@@ -17,6 +20,8 @@ public class mains {
 
         System.out.println(Cnmeiju.getName(2));
         System.out.println(Cnmeiju.getName("212"));
+
+
 
     }
 }

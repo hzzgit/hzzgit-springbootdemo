@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 数据类型转换工具类
@@ -83,7 +84,14 @@ public class ConverterUtils {
     public static Float toFloat(Object obj, float defaultVal) {
         return (obj != null) ? Float.parseFloat(toString(obj, "0")) : defaultVal;
     }
-
+    //用来判断集合是否非空且大于0
+    public static boolean isList(List list) {
+        boolean arg = false;
+        if (list != null && list.size() > 0) {
+            arg = true;
+        }
+        return arg;
+    }
     /**
      * <将对象转换为Float>
      *

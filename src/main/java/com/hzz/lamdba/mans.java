@@ -24,7 +24,7 @@ public class mans {
         students.add(new Student(55, "小猪"));
         students.add(new Student(55, "小猪1"));
         students.add(new Student(55, "小猪2"));
-        students.add(new Student(55, "小猪3"));
+        students.add(new Student(55, "小猪2"));
         students.add(new Student(55, "小猪4"));
         students.add(new Student(55, "小猪5"));
         students.add(new Student(122, "小猪777"));
@@ -39,7 +39,8 @@ public class mans {
 //            studentsMap.put(student.getSex(), studentList);
 //        }
 //
-//        Map<Integer, List<Student>> studentsMap1 = students.stream().collect(Collectors.groupingBy(Student::getSex));
+//        Map<String, List<Student>> studentsMap1 = students.stream().collect(Collectors.groupingBy(Student::getName));
+//        System.out.println(studentsMap1);
 //
 //
 //        new Thread(() -> System.out.println(1)).start();

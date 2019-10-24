@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 @Service
 public class abl extends  abclase {
 
-    @PostConstruct
+   // @PostConstruct
     public void init1(){
         init("第一个");
     }

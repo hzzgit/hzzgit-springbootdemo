@@ -28,7 +28,8 @@ public class reidshzz {
         HzzDataSource.createhzzdb(HzzDataSource.MYSQL, HzzDataSource.web);
         mysql = new mysqldb();
         JedisPoolConfig config = new JedisPoolConfig();
-       pool = new JedisPool("localhost");
+      // pool = new JedisPool("localhost");
+       pool = new JedisPool(config,"112.124.202.93",9221);
         //pool = new JedisPool(config,"r-bp143d2ed3392654.redis.rds.aliyuncs.com",6379,222321,"1jfrH8XLvx4wnbGNpY5Rr7SM",1);
       //  pool = new JedisPool(config, "172.30.102.42", 6379, 222321, "zYy2gV5ToZIiAs03rfwV9Btv", 1);
     }
@@ -234,8 +235,9 @@ public class reidshzz {
 
 
     public static void main(String[] args) {
-       new reidshzz().delall();
-
+        Jedis jedis = null;
+        jedis = pool.getResource();
+        System.out.println(jedis);
        // new reidshzz().vehicleceche();
 
     }

@@ -1,0 +1,53 @@
+package com.hzz.很牛逼的定时定量处理线程;
+
+
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class BlockedThreadPoolExecutor extends ThreadPoolExecutor {
+    private ReentrantLock pauseLock = new ReentrantLock();
+    private Condition unpaused;
+    private int size;
+    private int currActive;
+
+    public BlockedThreadPoolExecutor(int size) {
+        super(size, size, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue());
+        this.unpaused = this.pauseLock.newCondition();
+        this.currActive = 0;
+        this.size = size;
+    }
+
+    public void execute(Runnable command) {
+        this.pauseLock.lock();
+
+        try {
+            if (this.currActive >= this.size) {
+                this.unpaused.await();
+            }
+
+            super.execute(command);
+            ++this.currActive;
+        } catch (InterruptedException var6) {
+            throw new RuntimeException(var6);
+        } finally {
+            this.pauseLock.unlock();
+        }
+
+    }
+
+    protected void afterExecute(Runnable r, Throwable t) {
+        super.afterExecute(r, t);
+
+        try {
+            this.pauseLock.lock();
+            --this.currActive;
+            this.unpaused.signal();
+        } finally {
+            this.pauseLock.unlock();
+        }
+
+    }
+}

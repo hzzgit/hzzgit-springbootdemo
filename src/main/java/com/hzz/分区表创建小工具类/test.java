@@ -10,17 +10,18 @@ import java.util.Date;
 
 public class test {
     public static void main(String[] args) {
-        String ptable="p_gpscompress";
-        String sql="";
-        for (int i = 30; i >-100 ; i--) {
+        String ptable="p_drivercardrecord";
+        String sql="\t PARTITION BY RANGE ( TO_DAYS( createDate ) ) (";
+        for (int i = 0; i >-30 ; i--) {
             String time = TimeUtils.getdatebyMonth2(new Date(),i);
             String yytime=TimeUtils.getdatebyMonth(new Date(),i-1);
-            String name="PARTITION "+ptable+time+" " +
+            String name="\nPARTITION "+ptable+time+" " +
                     "\tVALUES\n" +
-                    "\t\tLESS THAN ( TO_DAYS( '"+yytime+"-01' ) ) ENGINE = INNODB,\n";
+                    "\t\tLESS THAN ( TO_DAYS( '"+yytime+"-01' ) ) ENGINE = INNODB,";
             sql+=name;
         }
-
+        sql = sql.substring(0, sql.length() - 1);
+        sql+="  );";
         System.out.println(sql);
 
         File file = new File("D:test.txt");

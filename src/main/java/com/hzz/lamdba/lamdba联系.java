@@ -17,6 +17,10 @@ public class lamdba联系 {
         students.add(new Student(55, "小猪5"));
         students.add(new Student(122, "小猪777"));
         students.add(new Student(122, "小猪513"));
+        Collections.sort(students, Comparator.comparing(Student::getSex));
+        int a=-1;
+        System.out.println(1);
+
         Map<String, Student> stringStudentMap = students.stream().collect(Collectors.toMap(Student::getName, p -> p, (p, v) -> v));
         Map<String, List<Student>> stringListMap = students.stream().collect(Collectors.groupingBy(Student::getName));
         students.sort(Comparator.comparing(Student::getSex));

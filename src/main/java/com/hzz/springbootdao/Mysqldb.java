@@ -4,6 +4,7 @@ package com.hzz.springbootdao;
 import com.hzz.springbootdao.util.ConverMap;
 import com.hzz.springbootdao.util.PaginateResult;
 import com.hzz.util.ConverterUtils;
+import net.fxft.common.jdbc.ConnectionSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -22,12 +23,26 @@ import java.util.Map;
 /**
  * 进行gbase,mysql数据库查询
  */
-//@Service("mysqldb")
+//@Service
 public class Mysqldb implements Hzzdao {
 
-   // @Qualifier("dataSource")
-  //  @Autowired
+//    @Qualifier("dataSource")
+//    @Autowired
     private DataSource dataSource;
+
+    private ConnectionhzzSource connSource;
+
+    public Mysqldb() {
+    }
+
+    public Mysqldb(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    public Mysqldb(DataSource dataSource, ConnectionhzzSource connSource) {
+        this.dataSource = dataSource;
+        this.connSource = connSource;
+    }
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -162,28 +177,20 @@ public class Mysqldb implements Hzzdao {
     public boolean executesql(String sql, Object... wdata) {
         boolean arg = false;
         PreparedStatement ps=null;
-        ResultSet rs=null;
         Connection con = null;
         try {
-            con= DataSourceUtils.getConnection(dataSource);
+            con=  this.connSource.getConnection();
 //            con.setAutoCommit(false);
             ps = con.prepareStatement(sql);
             for (int i = 0; i < wdata.length; i++) {
                 ps.setObject(i + 1, wdata[i]);
             }
             arg = ps.execute();
-            con.commit();
         } catch (SQLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
-            try {
-                con.rollback();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
         } finally {
-            this.close(rs,ps,con);
+            this.connSource.close(ps, con);
         }
         return arg;
     }

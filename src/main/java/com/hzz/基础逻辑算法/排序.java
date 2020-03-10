@@ -1,6 +1,7 @@
 package com.hzz.基础逻辑算法;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class 排序 {
@@ -85,11 +86,11 @@ public class 排序 {
 
 
     public static void main(String[] args) {
-        int[] arr = {7,10,2,4,7,1,8,5,19};
-        快速排序(arr, 0, arr.length-1);
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i]+" ");
-        }
-
+        List<String> nas = new ArrayList<>();
+        nas.add("a");
+        nas.add("c");
+        nas.add("b");
+        Collections.sort(nas, (s1, s2) -> s2.compareTo(s1));
+        System.out.println(nas);
     }
 }

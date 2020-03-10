@@ -4,6 +4,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.hzz.daoconfig.HzzDataSource;
 import com.hzz.daoconfig.mysqldb;
 import com.hzz.springbootdao.util.ConverterUtils;
+import net.fxft.cloud.redis.RedisUtil;
 import net.fxft.common.function.ThrowableConsumer;
 import net.fxft.common.jdbc.ConnectionSource;
 import net.fxft.common.jdbc.JdbcUtil;
@@ -28,10 +29,10 @@ public class reidshzz {
         HzzDataSource.createhzzdb(HzzDataSource.MYSQL, HzzDataSource.web);
         mysql = new mysqldb();
         JedisPoolConfig config = new JedisPoolConfig();
-      // pool = new JedisPool("localhost");
-       pool = new JedisPool(config,"112.124.202.93",9221);
+        // pool = new JedisPool("localhost");
+        pool = new JedisPool(config, "112.124.202.93", 9221);
         //pool = new JedisPool(config,"r-bp143d2ed3392654.redis.rds.aliyuncs.com",6379,222321,"1jfrH8XLvx4wnbGNpY5Rr7SM",1);
-      //  pool = new JedisPool(config, "172.30.102.42", 6379, 222321, "zYy2gV5ToZIiAs03rfwV9Btv", 1);
+        //  pool = new JedisPool(config, "172.30.102.42", 6379, 222321, "zYy2gV5ToZIiAs03rfwV9Btv", 1);
     }
 
     public static void pipine(Consumer<Pipeline> fun) {
@@ -114,7 +115,7 @@ public class reidshzz {
     }
 
     //将所有key都删除
-    public void delall(){
+    public void delall() {
         Set<String> keyals = reidshzz.excute(jedis -> {
             Set<String> keys = jedis.keys("vio:*");
             return keys;
@@ -128,7 +129,7 @@ public class reidshzz {
     }
 
     //这边是测试实时数据获取
-    public void getgpsrealdata(){
+    public void getgpsrealdata() {
         long s = System.currentTimeMillis();   //获取开始时间
 
         Set<String> key1s = reidshzz.excute(jedis -> {
@@ -162,8 +163,15 @@ public class reidshzz {
     }
 
 
+    public static <T> T cehce(Function<String, T> fun) {
+        String name = "te";
+        T a = fun.apply(name);
+        return a;
+    }
+
+
     //这边是测试车辆缓存的存取
-    public void vehicleceche(){
+    public void vehicleceche() {
 
 //        String sql = "select * from vehicle where deleted=false ";
 //        List<VehicleData> vehicleData = mysql.searchnopagesqlclass(sql, VehicleData.class);
@@ -218,14 +226,14 @@ public class reidshzz {
             Set<String> keys = jedis.keys("vehicle:*");
             return keys;
         });
-        List<Object> ves=  pipine(pipeline -> {
+        List<Object> ves = pipine(pipeline -> {
             for (String vekey : vekeys) {
                 pipeline.get(vekey.getBytes());
             }
             return pipeline.syncAndReturnAll();
         });
         for (Object ve : ves) {
-           VehicleData vehicle= KryoUtil.byte2object((byte[]) ve,VehicleData.class) ;
+            VehicleData vehicle = KryoUtil.byte2object((byte[]) ve, VehicleData.class);
         }
         long e6 = System.currentTimeMillis(); //获取结束时间
 
@@ -235,10 +243,33 @@ public class reidshzz {
 
 
     public static void main(String[] args) {
-        Jedis jedis = null;
-        jedis = pool.getResource();
-        System.out.println(jedis);
-       // new reidshzz().vehicleceche();
+        List<Student> students = new ArrayList<>();
+        for (int i = 0; i < 200000; i++) {
+            Student student = new Student(4133, "下滑");
+            Student student2 = new Student(323, "下滑2");
+            Student student3 = new Student(1323, "下滑3");
+            Student student4 = new Student(1323, "下滑4");
+            students.add(student);
+            students.add(student2);
+            students.add(student3);
+            students.add(student4);
+        }
+
+        Collections.sort(students, (s1, s2) -> {
+            return s1.getSex() > s2.getSex() ? 1 : s1.getSex() == s2.getSex() ? 0 : -1;
+        });
+        System.out.println(1 > 1 ? 1 : 1 == 1 ? 0 : -1);
+        String gname = "12";
+        String wname = "小猫";
+        System.out.println(gname.equalsIgnoreCase(wname) ? true : gname.equalsIgnoreCase("1") ? 1 : gname.equalsIgnoreCase("12") ? 3 : gname.equalsIgnoreCase("233") ? 133:2);
+        String a = reidshzz.cehce(na -> {
+            return na.substring(1, 2);
+        });
+        System.out.println(a);
 
     }
+
+
+
+
 }

@@ -14,7 +14,7 @@ public class testmain {
 
     private Tps consumerTps;
     private Tps producterTps;
-    @PostConstruct
+    //@PostConstruct
     private void init(){
         consumerTps = new Tps();
         producterTps = new Tps();
@@ -27,6 +27,7 @@ public class testmain {
             //这边就是到达时间和数量的时候会执行一次
             @Override
             public void batchRun(Integer splitKey, List<Student> reqlist) {
+
                 System.out.println("数量"+reqlist.size());
             }
         };
@@ -44,8 +45,13 @@ public class testmain {
     }
 
 
-
-
+    public static void main(String[] args) {
+        try {
+            new testmain().init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

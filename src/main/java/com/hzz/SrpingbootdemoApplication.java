@@ -1,9 +1,10 @@
-package com.hzz.srpingbootdemo;
+package com.hzz;
 
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.hzz.springbootdao.Hzzdao;
 import com.hzz.springbootdao.Mysqldb;
 import com.hzz.springbootdao.util.Mysqldb2;
+import com.hzz.注解的使用.ConditionalOnClass.Van;
 import com.hzz.注解的使用.TraceLog;
 import net.fxft.ascsgpsproc.api.GpsInfoQueryHelper;
 import net.fxft.ascsgpsproc.api.GpsInfoServiceImpl;
@@ -12,13 +13,14 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.util.ReflectionUtils;
 
@@ -26,13 +28,12 @@ import javax.sql.DataSource;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Properties;
 
 @SpringBootApplication
 @EnableScheduling
 @MapperScan("com.hzz.dao")
-@ComponentScan(basePackages = {"com.hzz"})
-public class SrpingbootdemoApplication {
+@Order(1)
+public class SrpingbootdemoApplication  implements CommandLineRunner {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(SrpingbootdemoApplication.class, args);
@@ -59,6 +60,23 @@ public class SrpingbootdemoApplication {
         }
     }
 
+    @Autowired
+    private Van van;
+
+
+    @Override
+    public void run(String... args) throws Exception {
+        //do something
+        van.fight();
+    }
+
+    /**
+     * 分页插件
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        return new PaginationInterceptor();
+    }
 
     @Qualifier("dataSource")
     @Autowired

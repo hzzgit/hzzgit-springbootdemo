@@ -93,6 +93,12 @@
             <artifactId>lombok</artifactId>
             <version>1.18.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.0.5</version>
+        </dependency>
+
         <!--<dependency>-->
             <!--<groupId>org.apache.tomcat.embed</groupId>-->
             <!--<artifactId>tomcat-embed-core</artifactId>-->

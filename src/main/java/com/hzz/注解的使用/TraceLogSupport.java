@@ -34,4 +34,9 @@ public class TraceLogSupport {
         );
         return String.join(";", elements);
     }
+
+    public static void main(String[] args) {
+        List<String> of = ImmutableList.of("1", "2");
+        System.out.println(String.join(";",of));
+    }
 }

@@ -1,5 +1,6 @@
 package com.hzz.srpingbootdemo;
 
+import com.hzz.SrpingbootdemoApplication;
 import net.fxft.common.jdbc.JdbcUtil;
 import net.fxft.common.jdbc.RowDataMap;
 import org.junit.Test;

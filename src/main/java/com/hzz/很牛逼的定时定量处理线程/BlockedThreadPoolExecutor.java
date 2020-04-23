@@ -8,15 +8,26 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class BlockedThreadPoolExecutor extends ThreadPoolExecutor {
-    private ReentrantLock pauseLock = new ReentrantLock();
+    private ReentrantLock pauseLock;
     private Condition unpaused;
     private int size;
     private int currActive;
 
     public BlockedThreadPoolExecutor(int size) {
-        super(size, size, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue());
+        this(size, "blockPool");
+    }
+
+    public BlockedThreadPoolExecutor(int size, String threadName) {
+        super(size, size, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue(), new NamedThreadPoolExecutor.NamedThreadFactory(threadName));
+        this.pauseLock = new ReentrantLock();
         this.unpaused = this.pauseLock.newCondition();
         this.currActive = 0;
+        this.size = size;
+    }
+
+    public void changeBlockedThreadPoolSize(int size) {
+        this.setMaximumPoolSize(size);
+        this.setCorePoolSize(size);
         this.size = size;
     }
 

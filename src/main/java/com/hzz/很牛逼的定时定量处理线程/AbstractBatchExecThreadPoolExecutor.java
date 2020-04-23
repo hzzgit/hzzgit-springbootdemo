@@ -12,6 +12,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -238,6 +240,62 @@ public abstract class AbstractBatchExecThreadPoolExecutor<K, T> {
         AtomicInteger execCnt = new AtomicInteger(0);
 
         SerialQueue() {
+        }
+    }
+
+    public static class BlockedThreadPoolExecutor extends ThreadPoolExecutor {
+        private ReentrantLock pauseLock;
+        private Condition unpaused;
+        private int size;
+        private int currActive;
+
+        public BlockedThreadPoolExecutor(int size) {
+            this(size, "blockPool");
+        }
+
+        public BlockedThreadPoolExecutor(int size, String threadName) {
+            super(size, size, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue(), new NamedThreadPoolExecutor.NamedThreadFactory(threadName));
+            this.pauseLock = new ReentrantLock();
+            this.unpaused = this.pauseLock.newCondition();
+            this.currActive = 0;
+            this.size = size;
+        }
+
+        public void changeBlockedThreadPoolSize(int size) {
+            this.setMaximumPoolSize(size);
+            this.setCorePoolSize(size);
+            this.size = size;
+        }
+
+        public void execute(Runnable command) {
+            this.pauseLock.lock();
+
+            try {
+                if (this.currActive >= this.size) {
+                    this.unpaused.await();
+                }
+
+                super.execute(command);
+                ++this.currActive;
+            } catch (InterruptedException var6) {
+                throw new RuntimeException(var6);
+            } finally {
+                this.pauseLock.unlock();
+            }
+
+        }
+
+        protected void afterExecute(Runnable r, Throwable t) {
+            super.afterExecute(r, t);
+
+            try {
+                this.pauseLock.lock();
+                --this.currActive;
+                this.unpaused.signal();
+            } finally {
+                this.pauseLock.unlock();
+            }
+
         }
     }
 }

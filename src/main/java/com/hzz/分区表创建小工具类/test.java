@@ -6,12 +6,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryPoolMXBean;
+import java.lang.management.MemoryUsage;
 import java.math.BigInteger;
-import java.util.Date;
+import java.util.*;
 
 public class test {
     public static void main(String[] args) {
-        String ptable="logisgpsrealdata";
+        String ptable="foreginlog";
         String sql="\t PARTITION BY RANGE ( TO_DAYS( createDate ) ) (";
         for (int i = 0; i >-30 ; i--) {
             String time = TimeUtils.getdatebyMonth2(new Date(),i);
@@ -24,7 +27,6 @@ public class test {
         sql = sql.substring(0, sql.length() - 1);
         sql+="  );";
         System.out.println(sql);
-        BigInteger bigInteger=new BigInteger("12111111111111111111112111111111111111111111111111111111111111111111111111111111111111111111111111");
-        System.out.println(bigInteger);
+
     }
 }

@@ -1,9 +1,12 @@
 package com.hzz.springbootdao;
 
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.hzz.entity.AlarmConfig;
 import com.hzz.springbootdao.util.ConverMap;
 import com.hzz.springbootdao.util.PaginateResult;
 import com.hzz.util.ConverterUtils;
+import lombok.extern.slf4j.Slf4j;
 import net.fxft.common.jdbc.ConnectionSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,6 +14,7 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.*;
@@ -24,6 +28,7 @@ import java.util.Map;
  * 进行gbase,mysql数据库查询
  */
 //@Service
+    @Slf4j
 public class Mysqldb implements Hzzdao {
 
 //    @Qualifier("dataSource")
@@ -104,6 +109,48 @@ public class Mysqldb implements Hzzdao {
         return paginateResult;
     }
 
+    //根据实体类进行保存
+    public void insert(Object object){
+        if(object==null){
+            throw new  NullPointerException();
+        }
+        String sql ="";
+        try {
+            Class<? extends Object> c = object.getClass();
+            TableName annotation = c.getAnnotation(TableName.class);
+            String tableName=annotation.value();
+            Field[] declaredFields = c.getDeclaredFields();// 获取所有的变量名
+            if(declaredFields.length>0) {
+                 sql = "insert into " + tableName + " ( ";
+                 String fielNames="";
+                 String valueNames="";
+                for (Field declaredField : declaredFields) {
+                    int modifiers = declaredField.getModifiers();
+                    if(modifiers==2) {
+                        declaredField.setAccessible(true);
+                        String fieldName = declaredField.getName();
+                        fielNames += fieldName + ",";
+                        valueNames += "'" + declaredField.get(object) + "',";
+                    }
+                }
+                fielNames=fielNames.substring(0,fielNames.length()-1);
+                valueNames=valueNames.substring(0,valueNames.length()-1);
+                sql+=fielNames+" ) values("+valueNames+") ";
+                executesql(sql);
+            }else{
+                throw new  NullPointerException();
+            }
+        } catch (Exception e){
+            log.error("插入错误,"+sql,e);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        AlarmConfig alarmConfig = new AlarmConfig();
+        alarmConfig.setId(0);
+        new Mysqldb().insert(alarmConfig);
+    }
 
     /**
      * 查询第一行第一列数据

@@ -5,6 +5,8 @@ import org.apache.activemq.util.TimeUtils;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 数据类型转换工具类
@@ -206,6 +208,19 @@ public class ConverterUtils {
             da="0"+da;
         }
         return da;
+    }
+
+    public static void main(String[] args) {
+        Map<String ,Integer> data=new HashMap<>();
+        data.put("111",2);
+        data.put("222",2);
+        data.put("333",2);
+        data.put("444",2);
+        data.forEach((p,v)->{
+            data.remove(p);
+            System.out.println(v);
+        });
+
     }
 
 

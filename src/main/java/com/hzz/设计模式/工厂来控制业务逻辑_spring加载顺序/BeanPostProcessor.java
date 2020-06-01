@@ -19,4 +19,9 @@ public class BeanPostProcessor implements org.springframework.beans.factory.conf
         System.out.println("最早的");
     }
 
+
+    public static void main(String[] args) {
+        short speed=1;
+        System.out.println(speed / 10.0);
+    }
 }

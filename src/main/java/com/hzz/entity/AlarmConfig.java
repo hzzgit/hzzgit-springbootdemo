@@ -17,6 +17,7 @@ public class AlarmConfig implements Serializable {
     public AlarmConfig() {
 		risklevel = "none";
     }
+    @TableId
 	private Integer id;
 	private Integer depid;
 	private String alarmsource;

@@ -62,9 +62,6 @@ public interface Hzzdao {
     public   Object searchFirstVal (String sql, Object... wdata);
 
 
-    public boolean executesql(String sql, Object... wdata);
-
-    public boolean executesql(ArrayList listsql);
 
 
 }

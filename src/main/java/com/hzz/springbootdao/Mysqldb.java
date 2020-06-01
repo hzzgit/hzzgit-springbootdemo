@@ -6,6 +6,7 @@ import com.hzz.entity.AlarmConfig;
 import com.hzz.springbootdao.util.ConverMap;
 import com.hzz.springbootdao.util.PaginateResult;
 import com.hzz.util.ConverterUtils;
+import com.ltmonitor.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.fxft.common.jdbc.ConnectionSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,8 +110,33 @@ public class Mysqldb implements Hzzdao {
         return paginateResult;
     }
 
-    //根据实体类进行保存
+    public void insertList(List<Object> objects){
+        List<String> sqlList=new ArrayList<>();
+        for (Object object : objects) {
+            String sql = getinsertsql(object);
+            sqlList.add(sql);
+        }
+        if(sqlList!=null&&sqlList.size()>0) {
+          boolean arg=  executesql( sqlList);
+          if(arg==false){
+              log.error("执行失败");
+          }
+        }else{
+            log.error("sql=不能为空");
+        }
+    }
+
     public void insert(Object object){
+        String sql = getinsertsql(object);
+        if(!StringUtil.isNullOrEmpty(sql)) {
+            executesql(sql);
+        }else{
+            log.error("sql="+sql+"不能为空");
+        }
+    }
+
+    //根据实体类进行保存
+    public String getinsertsql(Object object){
         if(object==null){
             throw new  NullPointerException();
         }
@@ -136,14 +162,13 @@ public class Mysqldb implements Hzzdao {
                 fielNames=fielNames.substring(0,fielNames.length()-1);
                 valueNames=valueNames.substring(0,valueNames.length()-1);
                 sql+=fielNames+" ) values("+valueNames+") ";
-                executesql(sql);
             }else{
                 throw new  NullPointerException();
             }
         } catch (Exception e){
             log.error("插入错误,"+sql,e);
         }
-
+        return sql;
     }
 
     public static void main(String[] args) {
@@ -190,7 +215,7 @@ public class Mysqldb implements Hzzdao {
     }
 
 
-    public boolean executesql(ArrayList listsql) {
+    public boolean executesql(List<String> listsql) {
         boolean arg = false;
         PreparedStatement ps=null;
         ResultSet rs=null;
@@ -214,6 +239,7 @@ public class Mysqldb implements Hzzdao {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+          return  false;
         } finally {
             this.close(rs,ps,con);
         }

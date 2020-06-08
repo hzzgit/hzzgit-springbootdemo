@@ -1,8 +1,6 @@
 package com.hzz.Controller;
 
 import com.hzz.springbootdao.Hzzdao;
-import com.hzz.springbootdao.Mysqldb;
-import net.fxft.common.jdbc.JdbcUtil;
 import net.fxft.gateway.po.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +17,6 @@ public class testtranfer {
     @Transactional
     public void tett() throws Exception{
         String sql="insert into bigscreen_log(id,tag,keyname ) values(0,1,1)";
-        hzzdao.executesql(sql);
         Vehicle vehicle = null;
 //        vehicle.getCreateDate();
 

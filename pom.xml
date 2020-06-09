@@ -152,7 +152,13 @@
             <scope>test</scope>
         </dependency>
 
-        <!--高性能SXSSFWorkbook相应的依赖包-->
+<!--        hzzdata注入-->
+        <dependency>
+            <groupId>com.hzz</groupId>
+            <artifactId>hzzcloud</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
 
 
     </dependencies>

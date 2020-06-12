@@ -6,23 +6,15 @@ import com.hzz.entity.AlarmConfig;
 import com.hzz.springbootdao.util.ConverMap;
 import com.hzz.springbootdao.util.PaginateResult;
 import com.hzz.util.ConverterUtils;
-import com.ltmonitor.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
-import net.fxft.common.jdbc.ConnectionSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.datasource.DataSourceUtils;
-import org.springframework.stereotype.Service;
+import net.fxft.common.util.StringUtil;
 
 import javax.sql.DataSource;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -128,7 +120,7 @@ public class Mysqldb implements Hzzdao {
 
     public void insert(Object object){
         String sql = getinsertsql(object);
-        if(!StringUtil.isNullOrEmpty(sql)) {
+        if(!StringUtil.isEmpty(sql)) {
             executesql(sql);
         }else{
             log.error("sql="+sql+"不能为空");

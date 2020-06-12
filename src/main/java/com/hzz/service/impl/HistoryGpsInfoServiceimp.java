@@ -2,23 +2,17 @@ package com.hzz.service.impl;
 
 
 import com.hzz.service.HistoryGpsInfoService;
-import com.ltmonitor.util.StringUtil;
 import net.fxft.ascsgpsproc.api.GpsInfoService;
 import net.fxft.ascsgpsproc.api.TimeUtils;
 import net.fxft.common.jdbc.RowDataMap;
 import net.fxft.common.log.AttrLog;
 import net.fxft.common.util.BasicUtil;
-import net.fxft.gateway.util.PointLatLng;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;

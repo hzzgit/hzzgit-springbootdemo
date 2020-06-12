@@ -1,6 +1,7 @@
 package com.hzz.分区表创建小工具类;
 
-import com.ltmonitor.util.StringUtil;
+
+import net.fxft.common.util.StringUtil;
 
 public class 创建多列的表 {
     public static void main(String[] args) {
@@ -9,7 +10,7 @@ public class 创建多列的表 {
         String nas[]=names.split(",");
         String datas="";
         for (String na : nas) {
-            if (!StringUtil.isNullOrEmpty(na)) {
+            if (!StringUtil.isEmpty(na)) {
                 String ns[]=na.split("/");
                 String na1 = ns[0];
                 String com = ns[1];

@@ -21,7 +21,7 @@ public class RuntimeException {
 
         List<String> data=new ArrayList<>();  //如果是运行异常可以不用进行捕获,其他异常如io等异常需要强制捕获异常
         String s = data.get(1);
-        File file =new File("D://test.txt");
+        File file =new File("D://按月分区.txt");
         if(!file.exists()){
             try {
                 file.createNewFile();

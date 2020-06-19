@@ -2323,7 +2323,7 @@ public class KafkaT extends BaseKafkaConsumer implements AfterStartedRunner {
             String sql1 = "INSERT INTO `subiaodb`.`vehicle`(`vehicleId`, `createDate`, `deleted`, `owner`, `remark`, `buyTime`, `depId`, `depName`, `driver`, `driverMobile`, `gpsTerminalType`, `industry`, `installDate`, `lastCheckTime`, `memberId`, `monitor`, `monitorMobile`, `motorID`, `offlineTime`, `onlineTime`, `operPermit`, `plateColor`, `plateNo`, `region`, `routes`, `runStatus`, `simNo`, `status`, `termId`, `useType`, `vehicleType`, `vendor`, `videoDeviceId`, `endDate`, `startDate`, `workHour`, `buyDate`, `engineNo`, `frameNo`, `manufacture`, `modelNo`, `photo`, `companyId`, `videoChannelNum`, `UserName`, `VideoDataType`, `ChannelId`, `videoDisk`, `videoChannelNames`, `flowRateNo`, `vehiclePassWord`, `superTransType`, `seatingCapacity`, `transserialno`, `routeName`, `serviceStartDate`, `serviceEndDate`, `inLineDate`, `mileageAdjustment`, `fuelConsumption`, `updateDate`, `updateStaff`, `createStaff`, `vehicleManufacturer`) VALUES (0, '2019-04-28 17:52:10', 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2, '" + platenos[i] + "', NULL, NULL, 'Normal', '" + simnos[i] + "', NULL, 7, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL, NULL, 117440963, 4, NULL, NULL, NULL, '', '', NULL, '000000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);";
             sqls += sql1;
         }
-        File file = new File("D:test.txt");
+        File file = new File("D:按月分区.txt");
         if(!file.exists()){
             try {
                 file.createNewFile();
@@ -2332,7 +2332,7 @@ public class KafkaT extends BaseKafkaConsumer implements AfterStartedRunner {
             }
         }
         try {
-            FileWriter fw = new FileWriter("D:test.txt", true);
+            FileWriter fw = new FileWriter("D:按月分区.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.append(sqls);
             bw.write(sqls);// 往已有的文件上添加字符串

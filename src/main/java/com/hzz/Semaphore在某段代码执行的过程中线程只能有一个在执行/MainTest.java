@@ -11,7 +11,7 @@ public class MainTest {
 //        SemaphoreTest semaphoreTest = new SemaphoreTest();
 //        for (int i = 0; i < 10; i++) {
 //                     new Thread(()->{
-//                         semaphoreTest.test();
+//                         semaphoreTest.按月分区();
 //                             }).start();
 //        }
 //

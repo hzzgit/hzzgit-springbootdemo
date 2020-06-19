@@ -30,6 +30,6 @@ public class PayUserServiceimp implements  UserPayService , InitializingBean {
     }
 
     public String getname(){
-        return  "test";
+        return  "按月分区";
     }
 }

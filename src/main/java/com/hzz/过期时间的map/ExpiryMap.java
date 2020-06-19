@@ -202,9 +202,9 @@ public class ExpiryMap<K, V> extends HashMap<K, V> {
         ExpiryMap<String, String> map = new ExpiryMap<>();
         map.put("test", "xxx");
         map.put("test2", "ankang", 5000);
-        System.out.println("test==" + map.get("test"));
+        System.out.println("按月分区==" + map.get("test"));
         Thread.sleep(3000);
-        System.out.println("test==" + map.get("test"));
+        System.out.println("按月分区==" + map.get("test"));
         System.out.println("test2==" + map.get("test2"));
         Thread.sleep(3000);
         System.out.println("test2==" + map.get("test2"));

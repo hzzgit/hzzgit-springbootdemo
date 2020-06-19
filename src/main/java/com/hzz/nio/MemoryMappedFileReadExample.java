@@ -8,7 +8,7 @@ import java.nio.channels.FileChannel;
 
 public class MemoryMappedFileReadExample
 {
-    private static String bigExcelFile = "D://test.xls";
+    private static String bigExcelFile = "D://按月分区.xls";
 
     public static void main(String[] args) throws Exception
     {

@@ -7,7 +7,7 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
 public class MemoryMappedFileWriteExample {
-    private static String bigExcelFile = "D://test.txt";
+    private static String bigExcelFile = "D://按月分区.txt";
 
     public static void main(String[] args) throws Exception {
         // Create file object

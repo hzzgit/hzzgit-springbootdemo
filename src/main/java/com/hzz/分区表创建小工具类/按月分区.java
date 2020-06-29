@@ -6,12 +6,12 @@ import java.util.Date;
 
 public class 按月分区 {
     public static void main(String[] args) {
-        String ptable="gpstemperature";
+        String ptable="safemonthresult";
         String sql="\t PARTITION BY RANGE ( TO_DAYS( sendTime ) ) (";
-        for (int i = 0; i >-30 ; i--) {
+        for (int i = -15; i >-100 ; i--) {
             String time = TimeUtils.getdatebyMonth2(new Date(),i);
             String yytime=TimeUtils.getdatebyMonth(new Date(),i-1);
-            String name="\nPARTITION "+ptable+time+" " +
+            String name="\nPARTITION p_"+ptable+time+" " +
                     "\tVALUES\n" +
                     "\t\tLESS THAN ( TO_DAYS( '"+yytime+"-01' ) ) ENGINE = INNODB,";
             sql+=name;

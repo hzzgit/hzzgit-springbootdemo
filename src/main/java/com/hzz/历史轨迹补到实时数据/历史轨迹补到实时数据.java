@@ -1,13 +1,11 @@
-package com.hzz.基础逻辑算法;
+package com.hzz.历史轨迹补到实时数据;
 
-import com.hzz.lamdba.GPSRealData;
 import com.hzz.util.TimeUtils;
 import net.fxft.common.jdbc.JdbcUtil;
 import net.fxft.common.jdbc.RowDataMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -15,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
-public class userinfo {
+public class 历史轨迹补到实时数据 {
 
     @Autowired
     private JdbcUtil jdbcUtil;

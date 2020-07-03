@@ -52,8 +52,8 @@ public class testController {
                                  try {
                                      double totalmemory=  Runtime.getRuntime().maxMemory()/1024/1024;
                                      double freememory=  Runtime.getRuntime().freeMemory()/1024/1024;
-                                     System.out.println("当前剩余内存"+freememory+"mb");
-                                     System.out.println("当前总内存"+totalmemory+"mb");
+                              //       System.out.println("当前剩余内存"+freememory+"mb");
+                                  //   System.out.println("当前总内存"+totalmemory+"mb");
                                      Thread.sleep(1000);
                                  } catch (InterruptedException e) {
                                      e.printStackTrace();

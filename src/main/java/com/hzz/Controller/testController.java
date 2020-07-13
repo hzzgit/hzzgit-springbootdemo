@@ -4,11 +4,13 @@ import com.github.pagehelper.PageHelper;
 import com.hzz.dao.AdasadsmsMapper;
 import com.hzz.dao.basicdataMapper;
 import com.hzz.entity.basicdata;
+import com.hzz.redisDao.autoCache;
 import com.hzz.serialize.entity.GPSRealData;
 import com.hzz.serialize.entity.GpsRealDataRest;
 import com.hzz.serialize.util.KryoUtil;
 import com.hzz.service.IQueryService;
 import com.hzz.service.PaginateResult;
+import net.fxft.cloud.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/testuser")
@@ -26,6 +30,9 @@ public class testController {
     private basicdataMapper basicdataMapper;
     @Autowired
     private AdasadsmsMapper adasadsmsMapper;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Autowired
     private IQueryService queryService;
@@ -47,21 +54,9 @@ public class testController {
 
     @PostConstruct
     private void init(){
-             new Thread(()->{
-                             while (true){
-                                 try {
-                                     double totalmemory=  Runtime.getRuntime().maxMemory()/1024/1024;
-                                     double freememory=  Runtime.getRuntime().freeMemory()/1024/1024;
-                              //       System.out.println("当前剩余内存"+freememory+"mb");
-                                  //   System.out.println("当前总内存"+totalmemory+"mb");
-                                     Thread.sleep(1000);
-                                 } catch (InterruptedException e) {
-                                     e.printStackTrace();
-                                 }
-                             }
-                     }).start();
+
         List<GPSRealData> gpsRealDatas=new ArrayList<>();
-        for (int i = 0; i <2000000 ; i++) {
+        for (int i = 0; i <100000 ; i++) {
             GPSRealData gpsRealData=new GPSRealData();
             gpsRealData.setId(i);
             gpsRealData.setLatitude(12212212.31331);
@@ -72,6 +67,37 @@ public class testController {
             gpsRealDatas.add(gpsRealData);
         }
         gpsRealData2=gpsRealDatas;
+        Map<String,byte[] > amap=new HashMap<>();
+        for (GPSRealData gpsRealData : gpsRealDatas) {
+                    amap.put(gpsRealData.getSimNo(),KryoUtil.object2clsbyte(gpsRealData) );
+        }
+          long s = System.currentTimeMillis();   //获取开始时间
+
+        autoCache.saveCache(amap);
+        long e = System.currentTimeMillis(); //获取结束时间
+        System.out.println( "写入文件用时：" + (e - s) + "ms");
+             new Thread(()->{
+                             while (true){
+                                   long s1 = System.currentTimeMillis();   //获取开始时间
+
+                                 String key="rdtest:";
+                                 redisUtil.pipeline(pl -> {//这边计算正常点
+                                     for (GPSRealData gpsRealData : gpsRealDatas) {
+                                         pl.setex((key+gpsRealData.getSimNo()).getBytes(),100,KryoUtil.object2clsbyte(gpsRealData));
+                                     }
+                                 });
+                                 long e1 = System.currentTimeMillis(); //获取结束时间
+                                 System.out.println("用时：" + (e1 - s1) + "ms");
+                                 try {
+                                     Thread.sleep(10000);
+                                 } catch (InterruptedException e2) {
+
+                                 }
+
+                             }
+                     }).start();
+
+
 
     }
 

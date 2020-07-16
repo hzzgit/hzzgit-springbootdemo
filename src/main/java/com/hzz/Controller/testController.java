@@ -56,7 +56,7 @@ public class testController {
     private void init(){
 
         List<GPSRealData> gpsRealDatas=new ArrayList<>();
-        for (int i = 0; i <100000 ; i++) {
+        for (int i = 0; i <500000 ; i++) {
             GPSRealData gpsRealData=new GPSRealData();
             gpsRealData.setId(i);
             gpsRealData.setLatitude(12212212.31331);
@@ -80,10 +80,10 @@ public class testController {
                              while (true){
                                    long s1 = System.currentTimeMillis();   //获取开始时间
 
-                                 String key="rdtest:";
+                                 String key="rd:";
                                  redisUtil.pipeline(pl -> {//这边计算正常点
                                      for (GPSRealData gpsRealData : gpsRealDatas) {
-                                         pl.setex((key+gpsRealData.getSimNo()).getBytes(),100,KryoUtil.object2clsbyte(gpsRealData));
+                                         pl.setex((key+gpsRealData.getSimNo()).getBytes(),1000,KryoUtil.object2clsbyte(gpsRealData));
                                      }
                                  });
                                  long e1 = System.currentTimeMillis(); //获取结束时间

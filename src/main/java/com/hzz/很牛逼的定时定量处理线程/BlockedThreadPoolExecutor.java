@@ -61,4 +61,32 @@ public class BlockedThreadPoolExecutor extends ThreadPoolExecutor {
         }
 
     }
+
+    public static void main(String[] args) {
+        BlockedThreadPoolExecutor blockedThreadPoolExecutor = new BlockedThreadPoolExecutor(3, "11");
+        for (int i = 0; i <10; i++) {
+            blockedThreadPoolExecutor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(Thread.currentThread());
+                        try {
+                            Thread.sleep(20000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                }
+            });
+        }
+        //这边直接阻塞掉了
+        while (blockedThreadPoolExecutor.getActiveCount()>1){
+            try {
+                System.out.println("当前活动中的线程"+blockedThreadPoolExecutor.getActiveCount());
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        
+    }
 }

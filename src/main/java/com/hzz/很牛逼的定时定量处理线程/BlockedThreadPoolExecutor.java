@@ -18,7 +18,8 @@ public class BlockedThreadPoolExecutor extends ThreadPoolExecutor {
     }
 
     public BlockedThreadPoolExecutor(int size, String threadName) {
-        super(size, size, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue(), new NamedThreadPoolExecutor.NamedThreadFactory(threadName));
+        super(size, size, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue(),
+                new NamedThreadPoolExecutor.NamedThreadFactory(threadName));
         this.pauseLock = new ReentrantLock();
         this.unpaused = this.pauseLock.newCondition();
         this.currActive = 0;

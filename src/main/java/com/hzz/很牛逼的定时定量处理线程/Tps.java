@@ -65,4 +65,9 @@ public class Tps {
             return count;
         }
     }
+
+    public static void main(String[] args) {
+        Tps tps=new Tps();
+        tps.add(1);
+    }
 }
